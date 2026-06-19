@@ -1,0 +1,82 @@
+# ======================
+# OS & System Files
+# ======================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+Desktop.ini
+
+# ======================
+# Editor & IDE Files
+# ======================
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.swp
+*.sublime-project
+*.sublime-workspace
+
+# ======================
+# Firebase & Local Dev
+# ======================
+# Firebase service account keys — NEVER commit these
+*-service-account*.json
+serviceAccountKey.json
+.runtimeconfig.json
+
+# Firebase emulator data
+.firebase/
+firebase-debug.log
+firebase-debug.*.log
+firestore-debug.log
+ui-debug.log
+
+# ======================
+# Environment & Secrets
+# ======================
+# .env files may contain API keys — do not commit
+.env
+.env.local
+.env.*.local
+.env.development
+.env.production
+
+# ======================
+# Logs
+# ======================
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ======================
+# Node / Package Manager
+# (if you add a build step later)
+# ======================
+node_modules/
+npm-debug.log
+yarn.lock
+package-lock.json
+.npm
+.yarn-integrity
+
+# ======================
+# Build Output
+# (if you add a build step later)
+# ======================
+dist/
+build/
+out/
+public/
+
+# ======================
+# Agents & AI Config
+# ======================
+.agents/

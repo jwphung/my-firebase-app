@@ -11,33 +11,64 @@
     /* ==========================================================================
        CSS DESIGN SYSTEM & UTILITIES (Apple HIG Reference)
        ========================================================================== */
+
+    /* --- Light Mode (default) --- */
     :root {
-      /* Apple Premium Dark Mode Color Palette */
-      --bg-primary: #000000;
-      --bg-surface: rgba(28, 28, 30, 0.65);
-      --bg-surface-hover: rgba(44, 44, 46, 0.75);
-      --border-color: rgba(255, 255, 255, 0.1);
-      --border-color-hover: rgba(255, 255, 255, 0.2);
-      
-      --accent-primary: #0a84ff;       /* Apple System Blue */
-      --accent-primary-rgb: 10, 132, 255;
-      --accent-secondary: #bf5af2;     /* Apple System Purple */
-      --accent-secondary-rgb: 191, 90, 242;
-      
-      --text-primary: #ffffff;
-      --text-secondary: #8e8e93;       /* Apple System Gray */
-      --text-muted: #636366;           /* Apple System Gray 2 */
-      
-      --danger: #ff453a;               /* Apple System Red */
-      --danger-bg: rgba(255, 69, 58, 0.08);
-      --success: #30d158;              /* Apple System Green */
-      
+      --bg-primary: #f2f2f7;           /* Apple systemGroupedBackground */
+      --bg-surface: rgba(255, 255, 255, 0.85);
+      --bg-surface-hover: rgba(255, 255, 255, 0.95);
+      --border-color: rgba(0, 0, 0, 0.08);
+      --border-color-hover: rgba(0, 0, 0, 0.18);
+
+      --accent-primary: #007aff;       /* Apple System Blue (Light) */
+      --accent-primary-rgb: 0, 122, 255;
+      --accent-secondary: #af52de;     /* Apple System Purple (Light) */
+      --accent-secondary-rgb: 175, 82, 222;
+
+      --text-primary: #1c1c1e;         /* Apple label */
+      --text-secondary: #6c6c70;       /* Apple secondaryLabel */
+      --text-muted: #aeaeb2;           /* Apple tertiaryLabel */
+
+      --danger: #ff3b30;               /* Apple System Red (Light) */
+      --danger-bg: rgba(255, 59, 48, 0.08);
+      --success: #34c759;              /* Apple System Green (Light) */
+
+      --blob-color-1: rgba(0, 122, 255, 0.12);
+      --blob-color-2: rgba(175, 82, 222, 0.12);
+      --blob-fade: rgba(242, 242, 247, 0);
+
       /* Apple System Font Stack */
       --font-body: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif;
       --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif;
-      
+
       --transition-bezier: cubic-bezier(0.15, 1, 0.3, 1);
       --transition-duration: 0.3s;
+    }
+
+    /* --- Dark Mode override --- */
+    [data-theme="dark"] {
+      --bg-primary: #000000;
+      --bg-surface: rgba(28, 28, 30, 0.72);
+      --bg-surface-hover: rgba(44, 44, 46, 0.80);
+      --border-color: rgba(255, 255, 255, 0.1);
+      --border-color-hover: rgba(255, 255, 255, 0.2);
+
+      --accent-primary: #0a84ff;       /* Apple System Blue (Dark) */
+      --accent-primary-rgb: 10, 132, 255;
+      --accent-secondary: #bf5af2;     /* Apple System Purple (Dark) */
+      --accent-secondary-rgb: 191, 90, 242;
+
+      --text-primary: #ffffff;
+      --text-secondary: #8e8e93;
+      --text-muted: #636366;
+
+      --danger: #ff453a;               /* Apple System Red (Dark) */
+      --danger-bg: rgba(255, 69, 58, 0.1);
+      --success: #30d158;              /* Apple System Green (Dark) */
+
+      --blob-color-1: rgba(10, 132, 255, 0.15);
+      --blob-color-2: rgba(191, 90, 242, 0.15);
+      --blob-fade: rgba(0, 0, 0, 0);
     }
 
     /* Base Reset */
@@ -88,13 +119,13 @@
     .bg-glow-blob-1 {
       top: -10%;
       left: -5%;
-      background: radial-gradient(circle, rgba(0, 122, 255, 0.12) 0%, rgba(242, 242, 247, 0) 70%);
+      background: radial-gradient(circle, var(--blob-color-1) 0%, var(--blob-fade) 70%);
     }
 
     .bg-glow-blob-2 {
       bottom: -15%;
       right: -5%;
-      background: radial-gradient(circle, rgba(175, 82, 222, 0.12) 0%, rgba(242, 242, 247, 0) 70%);
+      background: radial-gradient(circle, var(--blob-color-2) 0%, var(--blob-fade) 70%);
       animation-delay: -8s;
     }
 
@@ -163,6 +194,54 @@
       background: linear-gradient(135deg, var(--text-primary) 30%, var(--text-secondary) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+    }
+
+    /* ==========================================================================
+       THEME TOGGLE BUTTON
+       ========================================================================== */
+    .theme-toggle-btn {
+      width: 2.25rem;
+      height: 2.25rem;
+      border-radius: 50%;
+      border: 1px solid var(--border-color);
+      background: var(--bg-surface);
+      color: var(--text-secondary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s var(--transition-bezier);
+      flex-shrink: 0;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    .theme-toggle-btn:hover {
+      background: var(--bg-surface-hover);
+      border-color: var(--border-color-hover);
+      color: var(--accent-primary);
+      transform: scale(1.08) rotate(12deg);
+    }
+
+    .theme-toggle-btn:active {
+      transform: scale(0.95);
+    }
+
+    /* Show/hide sun vs moon icon based on theme */
+    .icon-sun  { display: block; }
+    .icon-moon { display: none; }
+    [data-theme="dark"] .icon-sun  { display: none; }
+    [data-theme="dark"] .icon-moon { display: block; }
+
+    /* Smooth theme color transitions */
+    body, .screen-panel, .input-field, .btn, .helper-box,
+    .toast-bubble, header.app-header, footer.app-footer {
+      transition:
+        background-color 0.3s ease,
+        background 0.3s ease,
+        border-color 0.3s ease,
+        color 0.3s ease,
+        box-shadow 0.3s ease;
     }
 
     /* Live vs Mock Badge Indicators */
@@ -731,10 +810,24 @@
         <div class="logo-mark" aria-hidden="true">N</div>
         <h1 class="logo-name">CloudNotes</h1>
       </div>
-      <!-- Mode Badge Indicator -->
-      <div id="mode-badge" class="badge-indicator mode-mock">
-        <span class="badge-dot pulse"></span>
-        <span id="mode-text">Mock Mode</span>
+      <!-- Header right controls: Mode badge + Theme toggle -->
+      <div style="display:flex;align-items:center;gap:0.75rem;">
+        <div id="mode-badge" class="badge-indicator mode-mock">
+          <span class="badge-dot pulse"></span>
+          <span id="mode-text">Mock Mode</span>
+        </div>
+        <!-- Theme Toggle Button -->
+        <button id="theme-toggle-btn" class="theme-toggle-btn" aria-label="Toggle light/dark mode" title="Toggle theme">
+          <!-- Sun icon (shown in light mode) -->
+          <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="4"/>
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+          </svg>
+          <!-- Moon icon (shown in dark mode) -->
+          <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
+          </svg>
+        </button>
       </div>
     </header>
 
@@ -1166,7 +1259,33 @@
     }
 
     // ==========================================
-    // 5. APPLICATION BOOTSTRAPPER
+    // 5. THEME TOGGLE LOGIC
+    // ==========================================
+    // Default is light mode; persists preference across sessions via localStorage.
+    const themeToggleBtn = document.getElementById("theme-toggle-btn");
+    const htmlEl = document.documentElement;
+
+    function applyTheme(theme) {
+      if (theme === "dark") {
+        htmlEl.setAttribute("data-theme", "dark");
+      } else {
+        htmlEl.removeAttribute("data-theme");
+      }
+      localStorage.setItem("cloudnotes-theme", theme);
+    }
+
+    // Apply saved theme on page load (default: light)
+    const savedTheme = localStorage.getItem("cloudnotes-theme") || "light";
+    applyTheme(savedTheme);
+
+    // Toggle on button click
+    themeToggleBtn.addEventListener("click", () => {
+      const current = htmlEl.getAttribute("data-theme") === "dark" ? "dark" : "light";
+      applyTheme(current === "dark" ? "light" : "dark");
+    });
+
+    // ==========================================
+    // 6. APPLICATION BOOTSTRAPPER
     // ==========================================
     if (isMockMode) {
       initMockMode();

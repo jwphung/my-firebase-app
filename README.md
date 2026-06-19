@@ -1,2 +1,2 @@
-# My Firebase App
-This is jwphung firebase app
+# My Firebase App Contribution Demo
+
